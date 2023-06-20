@@ -4,17 +4,17 @@ stages:
 
 build:
   stage: build
-  image: maven:latest
+  image: maven:3.8.4
   script:
     - mvn clean package
   artifacts:
     paths:
-      - target/your-application.war
+      - target/petclinic.war
 
 deploy:
   stage: deploy
   image: curlimages/curl:latest
   script:
-    - curl --upload-file /home/gitlab-runner/builds/glrt-3qU/0/rick.winkens/gitlab-ci-petclinic/target/petclinic.war --user admin:admin http://localhost:8080/manager/text/deploy?path=/petclinic
+    - curl --upload-file target/petclinic.war http://localhost:8080/petclinic
   only:
     - master
