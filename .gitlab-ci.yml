@@ -4,15 +4,17 @@ stages:
 
 build:
   stage: build
+  image: maven:latest
   script:
-    - mvn clean install
+    - mvn clean package
   artifacts:
     paths:
-      - target/petclinic.war
+      - target/your-application.war
 
 deploy:
   stage: deploy
+  image: curlimages/curl:latest
   script:
-    - cp target/petclinic.war /home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps
+    - curl --upload-file target/petclinic.war --user admin:admin http://localhost:8080/manager/text/deploy?path=/petclinic
   only:
     - master
