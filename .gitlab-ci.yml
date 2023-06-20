@@ -1,13 +1,18 @@
 stages:
   - build
-  -deploy
+  - deploy
 
 build:
-  - mvn clean install
+  stage: build
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+      - target/petclinic.war
 
 deploy:
   stage: deploy
   script:
-    - cp target/petclinic.war //home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps
+    - cp target/petclinic.war /home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps
   only:
     - master
