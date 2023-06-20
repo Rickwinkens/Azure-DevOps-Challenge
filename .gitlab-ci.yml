@@ -16,4 +16,3 @@ deploy:
     - cp target/petclinic.war /home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps
   only:
     - master
-    
