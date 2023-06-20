@@ -15,6 +15,6 @@ deploy:
   stage: deploy
   image: curlimages/curl:latest
   script:
-    - curl --upload-file target/petclinic.war --user admin:admin http://localhost:8080/manager/text/deploy?path=/petclinic
+    - curl --upload-file /home/gitlab-runner/builds/glrt-3qU/0/rick.winkens/gitlab-ci-petclinic/target/petclinic.war --user admin:admin http://localhost:8080/manager/text/deploy?path=/petclinic
   only:
     - master
