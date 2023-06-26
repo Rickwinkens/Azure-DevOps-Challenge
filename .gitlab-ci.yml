@@ -5,6 +5,18 @@ stages:
 build:
   stage: build
   tags:
-     - runner
+    - runner
   script:
-     - mvn clean package
+    - mvn clean package
+
+deploy_to_tomcat:
+  stage: deploy
+  script:
+    - cd /home/rickwinkens/Documents/devoteam-traineeship-petclinic
+    - mvn clean package
+    - rm -rf /home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps/petclinic*
+    - unzip -q target/petclinic.war -d /home/rickwinkens/Documents/apache-tomcat-9.0.75/webapps/petclinic
+  only:
+    - master
+
+
