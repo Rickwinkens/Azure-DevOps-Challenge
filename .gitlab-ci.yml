@@ -1,11 +1,9 @@
 build:
   stage: build
+  tags:
+    - runner
   script:
-     - mvn clean install
-
-deploy:
-  stage: deploy
-  script: mvn deploy
-
-  only:
-     - master
+    - whoami
+    - pwd
+    - ls -l
+    - ls -l ..
