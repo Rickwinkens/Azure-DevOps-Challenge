@@ -9,7 +9,9 @@ deploy:
   stage: deploy
   tags:
      - runner
-  script: sudo mvn deploy
+  script:
+     - cd /home/rickwinkens/Documents/devoteam-traineeship-petclinic 
+     - sudo mvn deploy
 
   only:
      - master
