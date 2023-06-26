@@ -1,17 +1,9 @@
 build:
   stage: build
-  tags: 
-     - runner
-  script:
-     - sudo mvn clean install
-
-deploy:
-  stage: deploy
   tags:
-     - runner
+    - docker
   script:
-     - sudo mvn deploy
-
-  only:
-     - master
-     
+    - whoami
+    - pwd
+    - ls -l
+    - ls -l ..
