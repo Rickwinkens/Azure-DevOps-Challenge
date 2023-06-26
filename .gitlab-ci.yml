@@ -4,5 +4,7 @@ stages:
 
 build:
   stage: build
+  tags:
+     - runner
   script:
-      - mvn clean package
+     - mvn clean package
