@@ -11,6 +11,8 @@ build:
 
 deploy_to_tomcat:
   stage: deploy
+  tags:
+    - runner
   script:
     - cd /home/rickwinkens/Documents/devoteam-traineeship-petclinic
     - mvn clean package
