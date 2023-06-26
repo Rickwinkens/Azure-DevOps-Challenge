@@ -7,6 +7,8 @@ build:
 
 deploy:
   stage: deploy
+  tags:
+     - runner
   script: mvn deploy
 
   only:
