@@ -10,7 +10,6 @@ deploy:
   tags:
      - runner
   script:
-     - cd /home/rickwinkens/Documents/devoteam-traineeship-petclinic 
      - sudo mvn deploy
 
   only:
