@@ -3,13 +3,13 @@ build:
   tags: 
      - runner
   script:
-     - mvn clean install
+     - sudo mvn clean install
 
 deploy:
   stage: deploy
   tags:
      - runner
-  script: mvn deploy
+  script: sudo mvn deploy
 
   only:
      - master
