@@ -1,5 +1,7 @@
 build:
   stage: build
+  tags: 
+     - runner
   script:
      - mvn clean install
 
