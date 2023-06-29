@@ -468,11 +468,6 @@
        <id>nexus</id>
        <name>Nexus Repository</name>
        <url>http://192.168.2.165:8081/repository/maven-releases/</url>
-       <uniqueVersion>false</uniqueVersion>
-       <authentication>
-         <username>admin</username>
-         <password>Devoteam-nexus-3</password>
-       </authentication>
      </repository>
    </distributionManagement>
 
