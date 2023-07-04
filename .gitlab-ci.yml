@@ -1,23 +1,26 @@
 stages:
-- deploy
-- release
+  - build
+  - deploy_snapshot
+  - deploy_release
 
-Build_and_deploy:
-stage: deploy
-tags:
-- runner
-script:
-- mvn clean package
-- rm -rf /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/petclinic*
-- cp target/petclinic.war -d /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/
+deploy_to_tomcat:
+  stage: deploy_snapshot
+  tags:
+    - runner
+  script:
+    - mvn clean package
+    - rm -rf /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/petclinic*
+    - cp target/petclinic.war /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/
 
-release:
-stage: release
-tags:
-- runner
-script:
-- echo "Deploying artifact to Nexus as a Snapshot..."
-- mvn deploy:deploy-file -Dfile=/home/rickwinkens/Documents/devoteam-traineeship-petclinic/target/petclinic.war -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+deploy_to_nexus_snapshot:
+  stage: deploy_snapshot
+  tags:
+    - runner
+  script:
+    - echo "Deploying artifact to Nexus as a Snapshot..."
+    - mvn deploy:deploy-file -Dfile=target/petclinic.war -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+  only:
+    - triggers
 
 deploy_to_nexus_release:
   stage: deploy_release
@@ -26,6 +29,6 @@ deploy_to_nexus_release:
   script:
     - echo "Deploying artifact to Nexus as a Release..."
     - mvn deploy:deploy-file -Dfile=target/petclinic.war -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+  only:
+    - tags
 
-only:
-  - master
