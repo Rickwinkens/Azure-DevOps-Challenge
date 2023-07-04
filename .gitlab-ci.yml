@@ -3,7 +3,7 @@ stages:
 - release
 
 Build_and_deploy:
-stage: build & deploy
+stage: deploy
 tags:
 - runner
 script:
