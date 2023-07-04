@@ -5,11 +5,15 @@ stages:
 
 build:
   stage: build
+  tags:
+    - runner
   script:
     - mvn clean install
 
 deploy_snapshot:
   stage: deploy_snapshot
+  tags:
+    - runner
   script:
     - mvn deploy -Dmaven.test.skip=true --settings settings.xml
   only:
@@ -18,6 +22,8 @@ deploy_snapshot:
 
 deploy_release:
   stage: deploy_release
+  tags:
+    - runner
   script:
     - mvn deploy -Dmaven.test.skip=true --settings settings.xml
   only:
