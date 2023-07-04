@@ -3,6 +3,13 @@ stages:
   - deploy_snapshot
   - deploy_release
 
+build:
+  stage: build
+  tags:
+    - runner
+  script:
+    - mvn clean package
+
 deploy_to_tomcat:
   stage: deploy_snapshot
   tags:
@@ -18,9 +25,9 @@ deploy_to_nexus_snapshot:
     - runner
   script:
     - echo "Deploying artifact to Nexus as a Snapshot..."
-    - mvn deploy:deploy-file -Dfile=target/petclinic.war -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+    - mvn deploy -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
   only:
-    - master
+    - master  # Specify the master branch for automatic snapshot deployment
 
 deploy_to_nexus_release:
   stage: deploy_release
@@ -28,7 +35,6 @@ deploy_to_nexus_release:
     - runner
   script:
     - echo "Deploying artifact to Nexus as a Release..."
-    - mvn deploy:deploy-file -Dfile=target/petclinic.war -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+    - mvn deploy -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
   only:
-    - tags
-
+    - tags  # Specify the tags for automatic release deployment
