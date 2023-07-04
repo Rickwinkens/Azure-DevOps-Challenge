@@ -25,7 +25,7 @@ release:
     - runner
   script:
     - echo "Deploying artifact to Nexus as a Snapshot..."
-    - mvn deploy:deploy-file -Dfile=/home/rickwinkens/Documents/devoteam-traineeship-petclinic/target/petclinic -DrepositoryId=nexus-snapshots -Durl=http://192.168.100.144:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war    
+    - mvn deploy:deploy-file -Dfile=/home/rickwinkens/Documents/devoteam-traineeship-petclinic/target/petclinic* -DrepositoryId=nexus-snapshots -Durl=http://192.168.100.144:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war    
 
   only:
     - master
