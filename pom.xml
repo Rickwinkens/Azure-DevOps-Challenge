@@ -473,13 +473,16 @@
         </plugins>
     </build>
 
-   <distributionManagement>
+    <distributionManagement>
      <repository>
-       <id>nexus</id>
-       <name>Nexus Repository</name>
-       <url>http://192.168.2.165:8081/repository/maven-releases/</url>
+       <id>nexus-releases</id>
+       <url>http://localhost:8081/repository/maven-releases/</url>
      </repository>
-   </distributionManagement>
+     <snapshotRepository>
+       <id>nexus-snapshots</id>
+       <url>http://localhost:8081/repository/maven-snapshots/</url>
+     </snapshotRepository>
+    </distributionManagement>
 
 
     <profiles>
