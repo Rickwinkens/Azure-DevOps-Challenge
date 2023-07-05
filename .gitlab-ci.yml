@@ -27,7 +27,7 @@ deploy_to_nexus_snapshot:
     - echo "Deploying artifact to Nexus as a Snapshot..."
     - mvn deploy -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
   only:
-    - master  # Specify the master branch for automatic snapshot deployment
+    - master
 
 deploy_to_nexus_release:
   stage: deploy_release
@@ -37,4 +37,4 @@ deploy_to_nexus_release:
     - echo "Deploying artifact to Nexus as a Release..."
     - mvn deploy -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
   only:
-    - tags  # Specify the tags for automatic release deployment
+    - release
