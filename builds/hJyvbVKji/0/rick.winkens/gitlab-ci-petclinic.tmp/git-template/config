@@ -1,0 +1,6 @@
+[init]
+	defaultBranch = none
+[fetch]
+	recurseSubmodules = false
+[http "https://gitlab.com"]
+	sslCAInfo = /home/rickwinkens/Documents/devoteam-traineeship-petclinic/builds/hJyvbVKji/0/rick.winkens/gitlab-ci-petclinic.tmp/CI_SERVER_TLS_CA_FILE
