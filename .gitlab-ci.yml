@@ -8,14 +8,14 @@ build:
   tags:
     - runner
   script:
-    - mvn clean package
+    - mvn clean package -Dversion=5.3.8-SNAPSHOT
 
 deploy_to_tomcat:
   stage: deploy_snapshot
   tags:
     - runner
   script:
-    - mvn clean package
+    - mvn clean package -Dversion=5.3.8-SNAPSHOT
     - rm -rf /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/petclinic*
     - cp target/petclinic.war /home/rickwinkens/Documents/apache-tomcat-9.0.76/webapps/
 
