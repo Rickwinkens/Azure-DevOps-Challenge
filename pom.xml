@@ -473,6 +473,15 @@
         </plugins>
     </build>
 
+   <distributionManagement>
+     <repository>
+       <id>nexus</id>
+       <name>Nexus Repository</name>
+       <url>http://192.168.2.165:8081/repository/maven-releases/</url>
+     </repository>
+   </distributionManagement>
+
+
     <profiles>
         <profile>
             <id>H2</id>
