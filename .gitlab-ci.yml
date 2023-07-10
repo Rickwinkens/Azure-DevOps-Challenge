@@ -16,8 +16,8 @@ deploy_to_tomcat:
     - runner
   script:
     - mvn clean package -Dversion=5.3.8-SNAPSHOT
-    - rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
-    - cp target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
+    - sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
+    - sudo cp -r target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
 
 deploy_to_nexus_snapshot:
   stage: deploy_snapshot
