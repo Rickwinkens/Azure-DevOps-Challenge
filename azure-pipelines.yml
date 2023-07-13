@@ -9,8 +9,6 @@ stages:
     jobs:
       - job: build
         displayName: Build
-        pool:
-          name: runner
         steps:
           - script: |
               mvn clean build
@@ -21,8 +19,6 @@ stages:
     jobs:
       - job: deploy_to_tomcat
         displayName: Deploy to Tomcat
-        pool:
-          name: runner
         steps:
           - script: |
               mvn clean deploy
