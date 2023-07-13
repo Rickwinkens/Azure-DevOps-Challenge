@@ -1,19 +1,54 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  branches:
+    include:
+      - master
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+  - stage: build
+    displayName: Build
+    jobs:
+      - job: build
+        displayName: Build
+        pool:
+          name: runner
+        steps:
+          - script: |
+              mvn clean package -Dversion=5.3.8-SNAPSHOT
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - stage: deploy_snapshot
+    displayName: Deploy to Tomcat
+    dependsOn: build
+    jobs:
+      - job: deploy_to_tomcat
+        displayName: Deploy to Tomcat
+        pool:
+          name: runner
+        steps:
+          - script: |
+              mvn clean package -Dversion=5.3.8-SNAPSHOT
+              sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
+              sudo cp -r target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+      - job: deploy_to_nexus_snapshot
+        displayName: Deploy to Nexus as Snapshot
+        pool:
+          name: runner
+        steps:
+          - script: |
+              echo "Deploying artifact to Nexus as a Snapshot..."
+              mvn deploy -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  - stage: deploy_release
+    displayName: Deploy to Nexus as Release
+    dependsOn: build
+    jobs:
+      - job: deploy_to_nexus_release
+        displayName: Deploy to Nexus as Release
+        pool:
+          name: runner
+        steps:
+          - script: |
+              echo "Deploying artifact to Nexus as a Release..."
+              mvn deploy -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
+        condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
