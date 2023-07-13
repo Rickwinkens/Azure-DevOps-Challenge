@@ -9,6 +9,8 @@ stages:
     jobs:
       - job: build
         displayName: Build
+        pool:
+          name: Azure Agent Rick
         steps:
           - script: |
               mvn clean build
@@ -19,6 +21,8 @@ stages:
     jobs:
       - job: deploy_to_tomcat
         displayName: Deploy to Tomcat
+        pool:
+          name: Azure Agent Rick
         steps:
           - script: |
               mvn clean deploy
