@@ -15,7 +15,7 @@ stages:
           - script: |
               mvn clean package -Dversion=5.3.8
 
-  - stage: deploy_snapshot
+  - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
     dependsOn: build
     jobs:
