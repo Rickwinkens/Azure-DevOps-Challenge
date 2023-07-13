@@ -1,40 +1,19 @@
 stages:
   - build
-  - deploy_snapshot
-  - deploy_release
+  - deploy_to_tomcat
 
 build:
   stage: build
   tags:
     - runner
   script:
-    - mvn clean package -Dversion=5.3.8-SNAPSHOT
+    - mvn clean package -Dversion=5.3.8
 
 deploy_to_tomcat:
   stage: deploy_snapshot
   tags:
     - runner
   script:
-    - mvn clean package -Dversion=5.3.8-SNAPSHOT
+    - mvn clean deploy -Dversion=5.3.8
     - sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
     - sudo cp -r target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
-
-deploy_to_nexus_snapshot:
-  stage: deploy_snapshot
-  tags:
-    - runner
-  script:
-    - echo "Deploying artifact to Nexus as a Snapshot..."
-    - mvn deploy -DrepositoryId=nexus-snapshots -Durl=http://localhost:8081/repository/maven-snapshots/ -Dversion=5.3.8-SNAPSHOT -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
-  only:
-    - master
-
-deploy_to_nexus_release:
-  stage: deploy_release
-  tags:
-    - runner
-  script:
-    - echo "Deploying artifact to Nexus as a Release..."
-    - mvn deploy -DrepositoryId=nexus-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dversion=5.3.8 -DgroupId=Gitlab.example -DartifactId=my-artifact -Dpackaging=war
-  only:
-    - master
