@@ -25,5 +25,5 @@ stages:
           name: Azure Agent Rick
         steps:
           - script: |
-              mvn tomcat7:deploy
+              mvn tomcat7:deploy -Dversion=5.3.8
               
