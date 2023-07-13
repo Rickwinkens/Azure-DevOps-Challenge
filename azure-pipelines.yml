@@ -25,6 +25,5 @@ stages:
           name: Azure Agent Rick
         steps:
           - script: |
-              mvn clean deploy -Dversion=5.3.8
-              sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
-              sudo cp -r target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
+              mvn tomcat7:deploy
+              
