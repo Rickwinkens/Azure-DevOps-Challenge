@@ -1,0 +1,3 @@
+- task: ShellScript@2
+  inputs:
+    scriptPath: 'AzurePipeline.sh'
