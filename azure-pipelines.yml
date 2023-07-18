@@ -25,7 +25,7 @@ stages:
           - task: CopyFiles@2
             displayName: 'Publish petclinic.war artifact'
             inputs:
-              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
+              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target/petclinic.war'
               contents: 'petclinic.war'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
