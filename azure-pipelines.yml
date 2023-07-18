@@ -18,8 +18,8 @@ stages:
           - task: CopyFiles@2
             displayName: 'Copy petclinic.war artifact'
             inputs:
-              SourceFolder: '/opt/tomcat/apache-tomcat-9.0.76/webapps'
-              contents: 'petclinic.war'
+              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
+              contents: 'petclinic'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
           
           - task: PublishBuildArtifacts@1
