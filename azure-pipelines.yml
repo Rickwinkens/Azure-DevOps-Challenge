@@ -52,11 +52,8 @@ stages:
           artifactName: 'drop'
           targetPath: '$(Pipeline.Workspace)'
 
-      - task: CommandLine@2
-        displayName: 'Run JMeter test'
-        inputs:
-          script: | 
-            jmeter -n -t $(Pipeline.Workspace)/jmeter-tests/*.jmx -l $(Pipeline.Workspace)/result.jtl
+      - script: | 
+          jmeter -n -t $(Pipeline.Workspace)/jmeter-tests/*.jmx -l $(Pipeline.Workspace)/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
