@@ -14,12 +14,20 @@ stages:
         steps:
           - script: |
               mvn clean compile -Dversion=5.3.8-SNAPSHOT
+
           - task: CopyFiles@2
             displayName: 'Copy JMeter script to build artifacts'
             inputs:
               SourceFolder: 'jmeter-tests'
               contents: '*.jmx'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          
+          -task: CopyFiles@2
+          displayName: 'Publish petclinic.war artifact'
+          inputs:
+            SourceFolder: '$(Build.ArtifactStagingDirectory)'
+            contents: 'petclinic.war'
+            TargetFolder: '/opt/tomcat/apache-tomcat-9.0.76/webapps'
 
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
@@ -35,10 +43,9 @@ stages:
               sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
               sudo cp /home/rickwinkens/myagent/_work/2/s/target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
 
-
   - stage: JMeterLoadTest
     displayName: 'JMeter Load Test'
-    dependsOn: Build
+    dependsOn: build
 
     jobs:
     - job: RunJmeterLoadTest
@@ -47,14 +54,15 @@ stages:
 
       steps:
       - task: DownloadPipelineArtifact@2
-        displayName: 'Download Build Artifact'
+        displayName: 'Download petclinic.war Artifact'
         inputs:
           buildType: 'current'
           artifactName: 'drop'
+          itemPattern: 'petclinic.war'
           targetPath: '$(Pipeline.Workspace)'
-          
+
       - script: | 
-          jmeter -n -t $(Build.ArtifactStagingDirectory)/*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
+          jmeter -n -t $(Pipeline.Workspace)/jmeter-tests*.jmx -l $(Pipeline.Workspace)/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
