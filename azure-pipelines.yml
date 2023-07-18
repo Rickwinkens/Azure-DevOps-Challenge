@@ -46,11 +46,11 @@ stages:
 
       steps:
       - task: DownloadPipelineArtifact@2
-      displayName: 'Download Build Artifact'
-      inputs:
-        buildType: 'current'
-        artifactName: 'drop'
-        targetPath: '$(Pipeline.Workspace)'
+        displayName: 'Download Build Artifact'
+        inputs:
+          buildType: 'current'
+          artifactName: 'drop'
+          targetPath: '$(Pipeline.Workspace)'
 
       - task: CommandLine@2
         displayName: 'Run JMeter test'
