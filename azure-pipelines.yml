@@ -58,7 +58,7 @@ stages:
           downloadPath: '$(Build.ArtifactStagingDirectory)'
 
       - script: | 
-          /opt/jmeter/bin/jmeter.sh -n -t $(Build.ArtifactStagingDirectory)/jmeter-tests*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
+          /opt/jmeter/bin/jmeter.sh -n -t $(Build.ArtifactStagingDirectory)/*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
