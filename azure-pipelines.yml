@@ -22,12 +22,12 @@ stages:
               contents: '*.jmx'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
           
-          -task: CopyFiles@2
-          displayName: 'Publish petclinic.war artifact'
-          inputs:
-            SourceFolder: '$(Build.ArtifactStagingDirectory)'
-            contents: 'petclinic.war'
-            TargetFolder: '/opt/tomcat/apache-tomcat-9.0.76/webapps'
+          - task: CopyFiles@2
+            displayName: 'Publish petclinic.war artifact'
+            inputs:
+              SourceFolder: '$(Build.ArtifactStagingDirectory)'
+              contents: 'petclinic.war'
+              TargetFolder: '/opt/tomcat/apache-tomcat-9.0.76/webapps'
 
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
