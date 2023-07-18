@@ -40,9 +40,8 @@ stages:
 
     jobs:
     - job: RunJmeterLoadTest
-      displayName: 'Run JMeter Load Test'
-      pool:
-        name: Azure Agent Rick
+        pool:
+         name: Azure Agent Rick
 
       steps:
       - task: DownloadPipelineArtifact@2
