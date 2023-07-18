@@ -16,18 +16,17 @@ stages:
               mvn clean compile -Dversion=5.3.8-SNAPSHOT
 
           - task: CopyFiles@2
-            displayName: 'Copy JMeter script to build artifacts'
+            displayName: 'Copy petclinic.war artifact'
             inputs:
-              SourceFolder: 'jmeter-tests'
-              contents: '*.jmx'
-              TargetFolder: '$(Build.ArtifactStagingDirectory)'
-          
-          - task: CopyFiles@2
-            displayName: 'Publish petclinic.war artifact'
-            inputs:
-              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
+              SourceFolder: '/opt/tomcat/apache-tomcat-9.0.76/webapps'
               contents: 'petclinic.war'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish petclinic.war as artifact'
+            inputs:
+              PathToPublish: '$(Build.ArtifactStagingDirectory'
+              ArtifactName: 'drop'
 
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
@@ -45,7 +44,7 @@ stages:
 
   - stage: JMeterLoadTest
     displayName: 'JMeter Load Test'
-    dependsOn: build
+    dependsOn: deploy_to_tomcat
 
     jobs:
     - job: RunJmeterLoadTest
