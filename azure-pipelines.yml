@@ -21,13 +21,7 @@ stages:
               SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
               contents: 'petclinic'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
-          
-          - task: PublishBuildArtifacts@1
-            displayName: 'Publish petclinic.war as artifact'
-            inputs:
-              PathToPublish: '$(Build.ArtifactStagingDirectory'
-              ArtifactName: 'drop'
-
+         
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
     dependsOn: build
