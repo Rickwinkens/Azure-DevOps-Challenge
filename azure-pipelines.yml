@@ -35,6 +35,24 @@ stages:
               sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
               sudo cp /home/rickwinkens/myagent/_work/2/s/target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
 
+
+  - stage: JMeterLoadTest
+    displayName: 'JMeter Load Test'
+    dependsOn: Build
+
+    jobs:
+    - job: RunJmeterLoadTest
+      pool:
+       name: Azure Agent Rick
+
+      steps:
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download Build Artifact'
+        inputs:
+          buildType: 'current'
+          artifactName: 'drop'
+          targetPath: '$(Pipeline.Workspace)'
+          
       - script: | 
           jmeter -n -t $(Build.ArtifactStagingDirectory)/*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
 
