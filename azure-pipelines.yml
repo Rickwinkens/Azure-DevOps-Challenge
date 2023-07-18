@@ -14,6 +14,11 @@ stages:
         steps:
           - script: |
               mvn clean compile -Dversion=5.3.8-SNAPSHOT
+          - task: CopyFiles@2
+          displayName: 'Copy JMeter script to build artifacts'
+          inputs:
+            contents: 'jmeter-tests/*.jmx'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
@@ -28,4 +33,39 @@ stages:
               mvn clean deploy -Dversion=5.3.8-SNAPSHOT
               sudo rm -rf /opt/tomcat/apache-tomcat-9.0.76/webapps/petclinic*
               sudo cp /home/rickwinkens/myagent/_work/2/s/target/petclinic.war /opt/tomcat/apache-tomcat-9.0.76/webapps
-              
+
+  - stage: JMeterLoadTest
+    displayName: 'JMeter Load Test'
+    dependsOn: Build
+
+    jobs:
+    - job: RunJmeterLoadTest
+      displayName: 'Run JMeter Load Test'
+      pool:
+        name: Azure Agent Rick
+
+      steps:
+      - task: DownloadPipelineArtifact@2
+      displayName: 'Download Build Artifact'
+      inputs:
+        buildType: 'current'
+        artifactName: 'drop'
+        targetPath: '$(Pipeline.Workspace)'
+
+      - task: CommandLine@2
+        displayName: 'Run JMeter test'
+        inputs:
+          script: | 
+            jmeter -n -t $(Pipeline.Workspace)/jmeter-tests/*.jmx -l $(Pipeline.Workspace)/result.jtl
+
+      - task: PublishTestResults@2
+        displayName: 'Publish JMeter test results'
+        inputs:
+          testResultsFormat: 'Junit'
+          testResultsFiles: '**/results.jtl'
+          failTaskOnFailedTests: True              
+
+
+
+
+
