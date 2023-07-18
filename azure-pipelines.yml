@@ -25,7 +25,7 @@ stages:
           - task: CopyFiles@2
             displayName: 'Publish petclinic.war artifact'
             inputs:
-              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target/petclinic.war'
+              SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
               contents: 'petclinic.war'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
@@ -56,13 +56,16 @@ stages:
       - task: DownloadPipelineArtifact@2
         displayName: 'Download petclinic.war Artifact'
         inputs:
-          buildType: 'current'
+          buildType: 'specific'
+          project: 'Azure DevOps Challenge'
+          pipeline: 'Azure DevOps Challenge'
+          runVersion: 'latest'
           artifactName: 'drop'
           itemPattern: 'petclinic.war'
-          targetPath: '$(Pipeline.Workspace)'
+          downloadPath: '$(Build.ArtifactStagingDirectory)'
 
       - script: | 
-          jmeter -n -t $(Pipeline.Workspace)/jmeter-tests*.jmx -l $(Pipeline.Workspace)/result.jtl
+          jmeter -n -t $(Build.ArtifactStagingDirectory)/jmeter-tests*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
