@@ -15,10 +15,10 @@ stages:
           - script: |
               mvn clean compile -Dversion=5.3.8-SNAPSHOT
           - task: CopyFiles@2
-          displayName: 'Copy JMeter script to build artifacts'
-          inputs:
-            contents: 'jmeter-tests/*.jmx'
-            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            displayName: 'Copy JMeter script to build artifacts'
+            inputs:
+              contents: 'jmeter-tests/*.jmx'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
