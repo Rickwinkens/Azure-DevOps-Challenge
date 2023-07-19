@@ -16,6 +16,13 @@ stages:
               mvn clean compile -Dversion=5.3.8-SNAPSHOT
 
           - task: CopyFiles@2
+            displayName: 'Copy JMX file to artifact staging directory'
+            inputs:
+              SourceFolder: 'jmeter-tests'
+              contents: '*.jmx' 
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+          - task: CopyFiles@2
             displayName: 'Copy petclinic.war artifact'
             inputs:
               SourceFolder: '/home/rickwinkens/myagent/_work/2/s/target'
