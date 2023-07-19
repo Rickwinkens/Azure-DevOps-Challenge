@@ -19,7 +19,7 @@ stages:
             displayName: 'Copy JMX file to artifact staging directory'
             inputs:
               SourceFolder: 'jmeter-tests'
-              contents: '*.jmx' 
+              contents: 'PetclinicLoadTest.jmx' 
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
           - task: CopyFiles@2
