@@ -20,7 +20,7 @@ stages:
             inputs:
               SourceFolder: 'jmeter-tests'
               contents: 'PetclinicLoadTest.jmx' 
-              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+              TargetFolder: '/home/rickwinkens/myagent/_work/2/s'
 
           - task: CopyFiles@2
             displayName: 'Copy petclinic.war artifact'
@@ -65,7 +65,7 @@ stages:
           downloadPath: '$(Build.ArtifactStagingDirectory)'
 
       - script: | 
-          /opt/jmeter/bin/jmeter.sh -n -t $(Build.ArtifactStagingDirectory)/*.jmx -l $(Build.ArtifactStagingDirectory)/result.jtl
+          /opt/jmeter/bin/jmeter.sh -n -t /home/rickwinkens/myagent/_work/2/s/*.jmx -l /home/rickwinkens/myagent/_work/2/s/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
