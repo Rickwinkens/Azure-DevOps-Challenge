@@ -65,7 +65,7 @@ stages:
           downloadPath: '$(Build.ArtifactStagingDirectory)'
 
       - script: | 
-          /opt/jmeter/bin/jmeter.sh -n -t $(System.DefaultWorkingDirectory)/jmeter-tests/*.jmx -JtargetHost=localhost -JtargetPort=8080 -l $(System.DefaultWorkingDirectory)/result.jtl
+          /opt/jmeter/bin/jmeter.sh -n -t $(System.DefaultWorkingDirectory)/jmeter-tests/*.jmx -JtargetHost=localhost -JtargetPort=8080 -l $(System.DefaultWorkingDirectory)/Results/result.jtl
 
       - task: PublishTestResults@2
         displayName: 'Publish JMeter test results'
