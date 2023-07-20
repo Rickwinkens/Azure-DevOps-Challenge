@@ -76,7 +76,7 @@ stages:
 
   - stage: SeleniumTest
     displayName: 'Selenium Test'
-    dependsOn: RunJmeterLoadTest
+    dependsOn: JmeterLoadTest
 
     jobs:
     - job: RunSeleniumTest
