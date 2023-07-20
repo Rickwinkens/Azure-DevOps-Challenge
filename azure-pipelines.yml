@@ -76,9 +76,13 @@ stages:
 
   - stage: RunSeleniumTests
     displayName: Run Selenium Tests
+    dependsOn: JMeterLoadTest
+
     jobs:
     - job: RunSeleniumTestsJob
-      displayName: Run Selenium Tests Job
+      pool:
+        name: Azure Agent Rick
+    
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
    
