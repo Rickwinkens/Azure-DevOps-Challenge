@@ -80,8 +80,8 @@ stages:
 
     jobs:
     - job: RunSeleniumTest
-       pool:
-         name: Azure Agent Rick
+      pool:
+        name: Azure Agent Rick
 
       steps:
       - script: |
