@@ -72,7 +72,24 @@ stages:
         inputs:
           testResultsFormat: 'Junit'
           testResultsFiles: '**/results.jtl'
-          failTaskOnFailedTests: True              
+          failTaskOnFailedTests: True   
+
+  - stage: SeleniumTest
+    displayName: 'Selenium Test'
+    dependsOn: RunJmeterLoadTest
+
+    jobs:
+    - job: RunSeleniumTest
+       pool:
+         name: Azure Agent Rick
+
+      steps:
+      - script: |
+          python3 /home/rickwinkens/petclinic_tests/test_petclinic.py
+        displayName: 'Run Selenium Test'
+
+   
+           
 
 
 
