@@ -85,7 +85,7 @@ stages:
 
       steps:
       - script: |
-          python3 /home/rickwinkens/petclinic_tests/test_petclinic.py
+          python3 rickwinkens0903/AzureDevOpsChallenge/Repos/Files/test_petclinic.py
         displayName: 'Run Selenium Test'
 
    
