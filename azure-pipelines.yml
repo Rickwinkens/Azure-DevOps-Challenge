@@ -84,7 +84,7 @@ stages:
         name: Azure Agent Rick
     
       steps:
-      - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
+      - script: python3 /home/rickwinkens/petclinic_tests/test_petclinic.py
    
            
 
