@@ -38,7 +38,7 @@ stages:
         pool:
           name: Azure Agent Rick
         steps:
-          - script: ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/test.yml
+          - script: sudo ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/test.yml
          
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
