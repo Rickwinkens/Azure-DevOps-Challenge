@@ -106,18 +106,14 @@ stages:
     
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
-  
+
   - stage: deploy_to_acceptance
     displayName: Deploy to Acceptance Environment
-    dependsOn: RunSeleniumTests
+    dependsOn: JMeterLoadTest
     jobs:
       - job: deploy_to_acceptance
         displayName: Deploy to Acceptance Environment
         pool:
           name: Azure Agent Rick
         steps:
-          - script: |
-              sudo docker stop my_application_production
-              sudo docker rm my_application_production
-          - script: | 
-          sudo ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/production.yml
+          - script: sudo ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/production.yml
