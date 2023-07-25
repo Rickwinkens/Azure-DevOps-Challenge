@@ -107,12 +107,12 @@ stages:
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
 
-  - stage: deploy_to_acceptance
-    displayName: Deploy to Acceptance Environment
-    dependsOn: JMeterLoadTest
+  - stage: deploy_to_production
+    displayName: Deploy to production Environment
+    dependsOn: RunSeleniumTests
     jobs:
-      - job: deploy_to_acceptance
-        displayName: Deploy to Acceptance Environment
+      - job: deploy_to_production
+        displayName: Deploy to production Environment
         pool:
           name: Azure Agent Rick
         steps:
