@@ -107,7 +107,7 @@ stages:
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
   
-   - stage: deploy_to_acceptance
+  - stage: deploy_to_acceptance
     displayName: Deploy to Acceptance Environment
     dependsOn: RunSeleniumTests
     jobs:
