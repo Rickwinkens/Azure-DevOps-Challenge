@@ -121,9 +121,3 @@ stages:
               sudo docker rm my_application_production
           - script: | 
           sudo ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/production.yml
-           
-
-
-
-
-
