@@ -29,6 +29,16 @@ stages:
               contents: 'petclinic'
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+  - stage: deploy_to_test
+    displayName: Deploy to Test Environment
+    dependsOn: build
+    jobs:
+      - job: deploy_to_test
+        displayName: Deploy to Test Environment
+        pool:
+          name: Azure Agent Rick
+        steps:
+          - script: ansible-playbook -i localhost /home/rickwinkens/ansible_project/playbook/test.yml
          
   - stage: deploy_to_tomcat
     displayName: Deploy to Tomcat
