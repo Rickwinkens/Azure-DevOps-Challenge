@@ -107,6 +107,28 @@ stages:
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
 
+  - stage: Provision
+    displayName: 'Provision Infrastructure'
+    jobs:
+    - job: Terraform
+      pool:
+        name: Azure Agent Rick
+      steps:
+      - checkout: self
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        inputs:
+          workingDirectory: /home/rickwinkens/ansible_project/azure_vm
+          command: 'init'
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        inputs:
+          workingDirectory: /home/rickwinkens/ansible_project/azure_vm
+          command: 'apply'
+          commandOptions: '-auto-approve'
+      - script: |
+          terraform output -json > output.json
+        displayName: 'Create output.json'
+        workingDirectory: /home/rickwinkens/ansible_project/azure_vm
+
   - stage: deploy_to_production
     displayName: Deploy to production Environment
     dependsOn: RunSeleniumTests
