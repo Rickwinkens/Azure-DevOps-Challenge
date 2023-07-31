@@ -119,6 +119,7 @@ stages:
         inputs:
           workingDirectory: /home/rickwinkens/ansible_project/azure_vm
           command: 'init'
+          backendServiceArm: 'none'
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
           workingDirectory: /home/rickwinkens/ansible_project/azure_vm
