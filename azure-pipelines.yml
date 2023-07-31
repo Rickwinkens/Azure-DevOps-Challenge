@@ -107,8 +107,9 @@ stages:
       steps:
       - script: python /home/rickwinkens/petclinic_tests/test_petclinic.py
 
-  - stage: Provision
+  - stage: Provisioning
     displayName: 'Provision Infrastructure'
+    dependsOn: RunSeleniumTest
     jobs:
     - job: Terraform
       pool:
@@ -127,7 +128,7 @@ stages:
 
   - stage: deploy_to_production
     displayName: Deploy to production Environment
-    dependsOn: RunSeleniumTests
+    dependsOn: Provisioning
     jobs:
       - job: deploy_to_production
         displayName: Deploy to production Environment
