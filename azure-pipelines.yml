@@ -118,10 +118,12 @@ stages:
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
           terraform apply -auto-approve
+        displayName: 'build VM with terraform'
       - script: |
+          rm /home/rickwinkens/ansible_project/azure_vm/output.json
           terraform output -json > output.json
-        displayName: 'Create output.json'
-        OverWrite: true
+        displayName: 'Create output file'
+        
 
   - stage: deploy_to_production
     displayName: Deploy to production Environment
