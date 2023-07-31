@@ -121,7 +121,7 @@ stages:
       - script: |
           terraform output -json > output.json
         displayName: 'Create output.json'
-        OverWrite: True
+        OverWrite: true
 
   - stage: deploy_to_production
     displayName: Deploy to production Environment
