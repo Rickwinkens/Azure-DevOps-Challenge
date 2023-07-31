@@ -114,21 +114,14 @@ stages:
       pool:
         name: Azure Agent Rick
       steps:
-      - checkout: self
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-        inputs:
-          workingDirectory: /home/rickwinkens/ansible_project/azure_vm
-          command: 'init'
-          backendServiceArm: 'none'
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-        inputs:
-          workingDirectory: /home/rickwinkens/ansible_project/azure_vm
-          command: 'apply'
-          commandOptions: '-auto-approve'
+      - script: |
+          cd /home/rickwinkens/ansible_project/azure_vm
+          terraform init
+          terraform apply -auto-approve
       - script: |
           terraform output -json > output.json
         displayName: 'Create output.json'
-        workingDirectory: /home/rickwinkens/ansible_project/azure_vm
+        OverWrite: True
 
   - stage: deploy_to_production
     displayName: Deploy to production Environment
