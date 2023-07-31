@@ -119,4 +119,5 @@ stages:
           - script: |
               scp -i ~/.ssh/id_rsa -r /home/rickwinkens/ansible_project rickwinkens@20.224.199.138:/home/rickwinkens/
           - script: |
+              ssh-keyscan -H 20.224.199.138 >> ~/.ssh/known_hosts
               ssh -i ~/.ssh/id_rsa rickwinkens@20.224.199.138 "sudo ansible-playbook -i /home/rickwinkens/ansible_project/inventory/production --private-key=~/.ssh/id_rsa /home/rickwinkens/ansible_project/playbook/production.yml -u rickwinkens"
