@@ -121,7 +121,7 @@ stages:
         displayName: 'build VM with terraform'
       - script: |
           rm /home/rickwinkens/ansible_project/azure_vm/output.json
-          terraform output -json > output.json
+          terraform output -json > /home/rickwinkens/ansible_project/azure_vm/output.json
         displayName: 'Create output file'
         
 
