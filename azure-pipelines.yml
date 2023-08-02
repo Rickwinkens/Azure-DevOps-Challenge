@@ -118,8 +118,11 @@ stages:
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
+        displayName: 'Initialize Terraform'
           terraform validate
+        displayName: 'Validate Terraform Syntax'
           terraform plan
+        displayName: 'Build Terraform Plan'
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform apply -auto-approve
@@ -129,16 +132,18 @@ stages:
           terraform output -json > /home/rickwinkens/ansible_project/azure_vm/output.json
         displayName: 'Create output file'
         
-  - stage: deploy_to_production
+  - stage: Deploy_to_Production
     displayName: Deploy to production Environment
     dependsOn: Provisioning
     jobs:
-      - job: deploy_to_production
-        displayName: Deploy to production Environment
-        pool:
-          name: Azure Agent Rick
-        steps:
-          - script: |
-              scp -i ~/.ssh/id_rsa -r /home/rickwinkens/ansible_project rickwinkens@20.224.199.138:/home/rickwinkens/
-          - script: |
-              ansible-playbook -i /home/rickwinkens/ansible_project/inventory/production --private-key=~/.ssh/id_rsa /home/rickwinkens/ansible_project/playbook/production.yml -u rickwinkens
+    - job: deploy_to_production
+      displayName: Deploy to production Environment
+      pool:
+        name: Azure Agent Rick
+      steps:
+        - script: |
+            scp -i ~/.ssh/id_rsa -r /home/rickwinkens/ansible_project rickwinkens@$(cat /home/rickwinkens/ansible_project/azure_vm/output.json | jq -r '.vm_public_ip.value'):/home/rickwinkens/
+          displayName: 'Copy Ansible playbook to VM'
+        - script: |
+            ansible-playbook -i /home/rickwinkens/ansible_project/inventory/production --private-key=~/.ssh/id_rsa /home/rickwinkens/ansible_project/playbook/production.yml -u rickwinkens
+          displayName: 'Run Ansible playbook'
