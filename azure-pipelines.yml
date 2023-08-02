@@ -118,6 +118,17 @@ stages:
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
+        displayName: 'Initialize Terraform'
+      steps:
+      - script: |
+          terraform validate
+        displayName: 'Validate Terraform script'
+      steps:
+      - script: |
+          terraform plan
+        displayName: 'Create Terraform plan'
+      steps: 
+      - script: |
           terraform apply -auto-approve
         displayName: 'build VM with terraform'
       - script: |
