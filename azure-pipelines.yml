@@ -116,8 +116,6 @@ stages:
         name: Azure Agent Rick
       steps:
       - script: |
-          az login --tenant 'f82b3c62-b635-402b-afa2-a1a807bbfd42'
-      - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
           terraform validate
