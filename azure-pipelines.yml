@@ -125,9 +125,7 @@ stages:
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
           workingDirectory: '/home/rickwinkens/ansible_project/azure_vm'
-          command: 'apply'
-          commandOptions: '-auto-approve'
-
+          command: 'plan'
       - script: |
           terraform apply -auto-approve
         displayName: 'build VM with terraform'
