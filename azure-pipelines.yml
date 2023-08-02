@@ -116,8 +116,8 @@ stages:
         name: Azure Agent Rick
       steps:
       - script: |
-            az login --scope https://graph.microsoft.com/.default
-          displayName: 'Azure Login'
+          az login --scope https://graph.microsoft.com/.default
+        displayName: 'Azure Login'
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
