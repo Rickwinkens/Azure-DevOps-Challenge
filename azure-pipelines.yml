@@ -120,9 +120,11 @@ stages:
           terraform init
         displayName: 'Initialize Terraform'
       - script: |
+          cd /home/rickwinkens/ansible_project/azure_vm
           terraform validate
         displayName: 'Validate Terraform Syntax'
       - script: |
+          cd /home/rickwinkens/ansible_project/azure_vm
           terraform plan
         displayName: 'Build Terraform Plan'
       - script: |
