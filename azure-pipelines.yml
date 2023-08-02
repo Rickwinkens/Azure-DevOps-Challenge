@@ -122,10 +122,12 @@ stages:
       - script: |
           terraform validate
         displayName: 'Validate Terraform script'
-      - script: |
-          cd /home/rickwinkens/ansible_project/azure_vm
-          terraform plan
-        displayName: 'Create Terraform plan'
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        inputs:
+          workingDirectory: '/home/rickwinkens/ansible_project/azure_vm'
+          command: 'apply'
+          commandOptions: '-auto-approve'
+
       - script: |
           terraform apply -auto-approve
         displayName: 'build VM with terraform'
