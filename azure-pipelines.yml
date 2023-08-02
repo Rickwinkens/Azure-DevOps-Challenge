@@ -146,6 +146,8 @@ stages:
         name: Azure Agent Rick
       steps:
         - script: |
+            pip install --user jmespath
+        - script: |
             scp -i ~/.ssh/id_rsa -r /home/rickwinkens/ansible_project rickwinkens@$(cat /home/rickwinkens/ansible_project/azure_vm/output.json | jq -r '.vm_public_ip.value'):/home/rickwinkens/
           displayName: 'Copy Ansible playbook to VM'
         - script: |
