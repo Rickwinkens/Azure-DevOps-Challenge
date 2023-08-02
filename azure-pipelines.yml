@@ -1,4 +1,4 @@
-trigger:
+#trigger:
   branches:
     include:
       - master
@@ -122,10 +122,9 @@ stages:
       - script: |
           terraform validate
         displayName: 'Validate Terraform script'
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-        inputs:
-          workingDirectory: '/home/rickwinkens/ansible_project/azure_vm'
-          command: 'plan'
+      - script: |
+          terraform plan
+        displayName: 'Build Terraform plan'
       - script: |
           terraform apply -auto-approve
         displayName: 'build VM with terraform'
