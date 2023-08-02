@@ -123,9 +123,6 @@ stages:
           terraform validate
         displayName: 'Validate Terraform script'
       - script: |
-          terraform plan
-        displayName: 'Build Terraform plan'
-      - script: |
           terraform apply -auto-approve
         displayName: 'build VM with terraform'
       - script: |
