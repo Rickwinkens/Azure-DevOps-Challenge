@@ -118,8 +118,10 @@ stages:
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
+          terraform validate
           terraform plan
       - script: |
+          cd /home/rickwinkens/ansible_project/azure_vm
           terraform apply -auto-approve
       - script: |
           rm /home/rickwinkens/ansible_project/azure_vm/output.json
