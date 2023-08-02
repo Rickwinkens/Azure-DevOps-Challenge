@@ -123,6 +123,7 @@ stages:
           terraform validate
         displayName: 'Validate Terraform script'
       - script: |
+          cd /home/rickwinkens/ansible_project/azure_vm
           terraform plan
         displayName: 'Create Terraform plan'
       - script: |
