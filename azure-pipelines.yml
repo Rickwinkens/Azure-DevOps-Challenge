@@ -119,8 +119,10 @@ stages:
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform init
         displayName: 'Initialize Terraform'
+      - script: |
           terraform validate
         displayName: 'Validate Terraform Syntax'
+      - script: |
           terraform plan
         displayName: 'Build Terraform Plan'
       - script: |
