@@ -130,6 +130,7 @@ stages:
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           terraform apply -auto-approve
+        displayName: Terraform Apply' 
       - script: |
           cd /home/rickwinkens/ansible_project/azure_vm
           rm /home/rickwinkens/ansible_project/azure_vm/output.json
